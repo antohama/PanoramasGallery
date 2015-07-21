@@ -3,14 +3,9 @@ package com.training.anton.robotgallery;
 import android.content.Context;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.Date;
 import java.util.Random;
 
 /**
