@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.util.Random;
 
 /**
- * Created by Anton on 7/20/2015.
+ * Generates JSON with random data
  */
 public class JSONDataGenerator {
 

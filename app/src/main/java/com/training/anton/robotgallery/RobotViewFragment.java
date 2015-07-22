@@ -15,9 +15,6 @@ import android.widget.ImageView;
  */
 public class RobotViewFragment extends Fragment {
 
-    public RobotViewFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_robot_view, container, false);
