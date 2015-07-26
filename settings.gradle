@@ -1,2 +1,1 @@
-include ':app', ':Volley'
-project(':Volley').projectDir = new File('libs/Volley')
+include ':app'
