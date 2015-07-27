@@ -2,9 +2,6 @@ package com.training.anton.api.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Anton on 7/24/2015.
- */
 public class PanoramaPhoto {
     private int height;
     private int width;

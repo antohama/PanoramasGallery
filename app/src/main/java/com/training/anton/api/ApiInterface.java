@@ -6,19 +6,11 @@ import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
-/**
- * Created by Anton on 7/24/2015.
- */
 public class ApiInterface {
     public static final String BASE_URL = "http://www.panoramio.com";
     //Chicago
-    public static double lat = 41.985844;
-    public static double longt = -87.655063;
-
-    /* Lviv
-    public static double lat = 49.839311;
-    public static double longt = 24.026070;
-    */
+    public static double LAT = 41.985844;
+    public static double LONG = -87.655063;
 
     public interface ApiPanoramioService {
         @GET("/map/get_panoramas.php")

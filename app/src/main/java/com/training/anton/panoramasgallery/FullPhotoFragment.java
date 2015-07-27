@@ -1,4 +1,4 @@
-package com.training.anton.PanoramasGallery;
+package com.training.anton.panoramasgallery;
 
 import android.app.DialogFragment;
 import android.os.Bundle;

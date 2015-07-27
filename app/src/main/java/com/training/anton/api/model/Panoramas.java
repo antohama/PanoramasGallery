@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by Anton on 7/24/2015.
- */
 public class Panoramas {
 
     private int count;

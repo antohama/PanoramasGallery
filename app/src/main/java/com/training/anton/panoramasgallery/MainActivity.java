@@ -1,4 +1,4 @@
-package com.training.anton.PanoramasGallery;
+package com.training.anton.panoramasgallery;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(ApiInterface.BASE_URL).build();
         ApiInterface.ApiPanoramioService api = restAdapter.create(ApiInterface.ApiPanoramioService.class);
 
-        api.getPanoramas("public", "small", 0, 100, ApiInterface.longt - 0.005, ApiInterface.lat - 0.005, ApiInterface.longt + 0.005, ApiInterface.lat + 0.005, new Callback<Panoramas>() {
+        api.getPanoramas("public", "small", 0, 100, ApiInterface.LONG - 0.005, ApiInterface.LAT - 0.005, ApiInterface.LONG + 0.005, ApiInterface.LAT + 0.005, new Callback<Panoramas>() {
             @Override
             public void success(Panoramas pano, Response response) {
                 listPhotos = pano.getPhotos();
-                gridAdapter.addItems(listPhotos);
+                gridAdapter.updateList(listPhotos);
             }
 
             @Override

@@ -1,4 +1,4 @@
-package com.training.anton.PanoramasGallery;
+package com.training.anton.panoramasgallery;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,19 +14,15 @@ import com.training.anton.api.model.PanoramaPhoto;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Adapter defines methods to set up the grid view,
- * basing on the ArrayList of robot names.
- */
 public class GridViewCustomAdapter extends BaseAdapter {
-    Context mContext;
-    LayoutInflater mInflater;
-    List<PanoramaPhoto> mPanoramasList;
+    private final Context mContext;
+    private final LayoutInflater mInflater;
+    private List<PanoramaPhoto> mPanoramasList;
 
     public GridViewCustomAdapter(Context context) {
         mContext = context;
         mPanoramasList = Collections.EMPTY_LIST;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -46,24 +42,36 @@ public class GridViewCustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+
+        if (convertView == null) {
+            convertView = mInflater.inflate(R.layout.grid_cell, parent, false);
+
+            viewHolder = new ViewHolder();
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageViewInCell);
+            viewHolder.textView = (TextView) convertView.findViewById(R.id.textViewInCell);
+
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
         // Filling the grid cell with images obtained from network
-        View cellView = mInflater.inflate(R.layout.grid_cell, null);
-
-        ImageView imageViewInCell = (ImageView) cellView.findViewById(R.id.imageViewInCell);
         PanoramaPhoto photo = getItem(position);
-        Picasso.with(mContext).load(photo.getPhotoURL()).into(imageViewInCell);
+        Picasso.with(mContext).load(photo.getPhotoURL()).into(viewHolder.imageView);
 
-        TextView textViewInCell = (TextView) cellView.findViewById(R.id.textViewInCell);
-        textViewInCell.setMaxLines(2);
-        textViewInCell.setText(photo.getPhotoTitle());
-
-        return cellView;
+        viewHolder.textView.setMaxLines(2);
+        viewHolder.textView.setText(photo.getPhotoTitle());
+        return convertView;
     }
 
-    public void addItems(List<PanoramaPhoto> updatedList){
+    public void updateList(List<PanoramaPhoto> updatedList){
         mPanoramasList = updatedList;
-        mPanoramasList.add(new PanoramaPhoto());
         notifyDataSetChanged();
+    }
+
+    static class ViewHolder {
+        TextView textView;
+        ImageView imageView;
     }
 }
