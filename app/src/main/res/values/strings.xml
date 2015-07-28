@@ -2,4 +2,7 @@
     <string name="app_name">Photos around you</string>
     <string name="action_settings">Settings</string>
     <string name="title_full_photo_view">Photo View</string>
+    <string name="network_error_message">Failed to obtain data from internet service. Try again?</string>
+    <string name="try_again">Try again</string>
+    <string name="cancel">Cancel</string>
 </resources>
