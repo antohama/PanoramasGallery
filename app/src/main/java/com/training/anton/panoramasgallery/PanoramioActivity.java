@@ -1,9 +1,11 @@
 package com.training.anton.panoramasgallery;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.util.Log;
 import android.view.View;
 
@@ -16,12 +18,13 @@ import com.training.anton.network.NetworkModule;
 
 import java.util.List;
 
-public class PanoramioActivity extends AppCompatActivity {
+public class PanoramioActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     private NetworkModule networkModule;
     private List<PanoramaPhoto> listPhotos;
     private RecyclerView mRecyclerView;
     private RecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+	SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,17 @@ public class PanoramioActivity extends AppCompatActivity {
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
+		mRecyclerView.addOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                swipeRefreshLayout.setEnabled(true);
+            }
+        });
 
+		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+		
         mAdapter = new RecyclerAdapter(new RecyclerAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -51,6 +64,7 @@ public class PanoramioActivity extends AppCompatActivity {
         mAdapter.updateContent(listPhotos);
 
         mRecyclerView.setAdapter(mAdapter);
+		swipeRefreshLayout.setRefreshing(false);
     }
 
     public void showErrorMessage() {
@@ -60,5 +74,10 @@ public class PanoramioActivity extends AppCompatActivity {
                 networkModule.makeRequest(PanoramioActivity.this);
             }
         }).show(this);
+    }
+	
+	@Override
+    public void onRefresh() {
+        networkModule.makeRequest(PanoramioActivity.this);
     }
 }

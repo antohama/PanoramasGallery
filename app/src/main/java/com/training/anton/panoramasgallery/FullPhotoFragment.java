@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.training.anton.api.model.PanoramaPhoto;
 
 /**
  * Fragment shows full photo after clicking on it in grid view
@@ -20,8 +22,10 @@ public class FullPhotoFragment extends DialogFragment {
         View fragmentView = inflater.inflate(R.layout.fragment_full_view, container, false);
         String fullPhotoURL = getArguments().getString(EXTRA_PHOTO_URL);
         ImageView imageView = (ImageView) fragmentView.findViewById(R.id.full_photo_view);
+        TextView textView = (TextView) fragmentView.findViewById(R.id.textInFragment);
+        textView.setText("Width: " + getArguments().getInt("width") + "; height: "  + getArguments().getInt("height"));
 
-        Picasso.with(getActivity()).load(fullPhotoURL).into(imageView);
+        Picasso.with(getActivity()).load(fullPhotoURL.replace("mw2.google.com/mw-panoramio/photos/medium", "static.panoramio.com/photos/original")).into(imageView);
         return fragmentView;
     }
 
