@@ -54,10 +54,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         PanoramaPhoto photo = getItem(i);
-        Picasso.with(mContext)
-                .load(photo.getPhotoURL()).into(viewHolder.mImageView);
 
-        viewHolder.mTextView.setText(photo.getPhotoTitle());// + "\nWidth: " + photo.getWidth() + "; height: " + photo.getHeight());
+        Picasso.with(mContext).load(photo.getPhotoURL()).into(viewHolder.mImageView);
+        viewHolder.mTextView.setText(photo.getPhotoTitle());
     }
 
     @Override
