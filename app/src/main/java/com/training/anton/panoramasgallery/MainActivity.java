@@ -2,9 +2,9 @@ package com.training.anton.panoramasgallery;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.enums.SnackbarType;
@@ -21,21 +21,23 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private List<PanoramaPhoto> listPhotos;
-    private GridView gridView;
-    private GridViewCustomAdapter gridAdapter;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gridView = (GridView) findViewById(R.id.gridView);
-        gridAdapter = new GridViewCustomAdapter(this);
-        gridView.setAdapter(gridAdapter);
-        gridView.setOnItemClickListener(this);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mLayoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
+
 
         fetchPanoramas();
     }
@@ -44,11 +46,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(ApiInterface.BASE_URL).build();
         ApiInterface.ApiPanoramioService api = restAdapter.create(ApiInterface.ApiPanoramioService.class);
 
-        api.getPanoramas("public", "small", 0, 100, ApiInterface.LONG - 0.005, ApiInterface.LAT - 0.005, ApiInterface.LONG + 0.005, ApiInterface.LAT + 0.005, new Callback<Panoramas>() {
+        api.getPanoramas("full", "medium", 0, 100, ApiInterface.LONG - 0.005, ApiInterface.LAT - 0.005, ApiInterface.LONG + 0.005, ApiInterface.LAT + 0.005, new Callback<Panoramas>() {
             @Override
             public void success(Panoramas panoramas, Response response) {
                 listPhotos = panoramas.getPhotos();
-                gridAdapter.updateList(listPhotos);
+                mAdapter = new RecyclerAdapter(listPhotos, new ItemClickListener(){
+                    @Override
+                    public void onItemClick(View view, int position){
+                        String fullPhotoURL = listPhotos.get(position).getPhotoURL().replace("medium", "medium");
+                        FullPhotoFragment.create(fullPhotoURL).show(getFragmentManager(), "photofragment");
+                    }
+                });
+                mRecyclerView.setAdapter(mAdapter);
             }
 
             @Override
@@ -62,11 +71,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }).show(MainActivity.this);
             }
         });
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String fullPhotoURL = listPhotos.get(position).getPhotoURL().replace("small", "medium");
-        FullPhotoFragment.create(fullPhotoURL).show(getFragmentManager(), "photofragment");
     }
 }

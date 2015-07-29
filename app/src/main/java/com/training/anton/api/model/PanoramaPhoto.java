@@ -21,4 +21,12 @@ public class PanoramaPhoto {
     public String getPhotoTitle() {
         return photoTitle;
     }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
 }

@@ -3,14 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <GridView
-        android:id="@+id/gridView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin"
-        android:numColumns="2"
-        android:horizontalSpacing="@dimen/gridview_spacing"
-        android:verticalSpacing="@dimen/gridview_spacing">
-    </GridView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="vertical" />
 </LinearLayout>
