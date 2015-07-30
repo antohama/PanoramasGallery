@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
  * Fragment shows full photo after clicking on it in grid view
  */
 public class FullPhotoFragment extends DialogFragment {
-    private static final String EXTRA_PHOTO_URL = "com.training.anton.robotgallery.PHOTO_URL";
+    private static final String EXTRA_PHOTO_URL = "com.training.anton.panoramasgallery.PHOTO_URL";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

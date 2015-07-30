@@ -13,6 +13,7 @@ import com.training.anton.api.ApiInterface;
 import com.training.anton.api.model.PanoramaPhoto;
 import com.training.anton.api.model.Panoramas;
 
+import java.util.Collections;
 import java.util.List;
 
 import retrofit.Callback;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<PanoramaPhoto> listPhotos;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
@@ -39,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
 
+        mAdapter = new RecyclerAdapter(Collections.EMPTY_LIST, new ItemClickListener(){
+            @Override
+            public void onItemClick(View view, int position){
+                String fullPhotoURL = listPhotos.get(position).getPhotoURL().replace("medium", "medium");
+                FullPhotoFragment.create(fullPhotoURL).show(getFragmentManager(), "photofragment");
+            }
+        });
+
         fetchPanoramas();
     }
 
@@ -50,13 +59,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void success(Panoramas panoramas, Response response) {
                 listPhotos = panoramas.getPhotos();
-                mAdapter = new RecyclerAdapter(listPhotos, new ItemClickListener(){
-                    @Override
-                    public void onItemClick(View view, int position){
-                        String fullPhotoURL = listPhotos.get(position).getPhotoURL().replace("medium", "medium");
-                        FullPhotoFragment.create(fullPhotoURL).show(getFragmentManager(), "photofragment");
-                    }
-                });
+                mAdapter.updateContent(listPhotos);
+
                 mRecyclerView.setAdapter(mAdapter);
             }
 

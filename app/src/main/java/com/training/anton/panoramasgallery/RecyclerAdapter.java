@@ -60,6 +60,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewHolder.mTextView.setText(photo.getPhotoTitle());// + "\nWidth: " + photo.getWidth() + "; height: " + photo.getHeight());
     }
 
+    @Override
+    public long getItemId(int position) {
+        return getItem(position).getPhotoId();
+    }
+
     private PanoramaPhoto getItem(int i) {
         return mPanoramasList.get(i);
     }
@@ -67,5 +72,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public int getItemCount() {
         return mPanoramasList.size();
+    }
+
+    public void updateContent(List<PanoramaPhoto> updatedList) {
+        mPanoramasList = updatedList;
+        notifyDataSetChanged();
     }
 }
