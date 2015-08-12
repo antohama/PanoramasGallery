@@ -5,6 +5,15 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Panoramas {
+    @Override
+    public String toString() {
+        return "Panoramas{" +
+                "count=" + count +
+                ", has_more=" + has_more +
+                ", mapPosition=" + mapPosition +
+                ", photos=" + photos +
+                '}';
+    }
 
     private int count;
 
