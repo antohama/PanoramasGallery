@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">Robot Gallery</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Photos around you</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_robot_view">Robot View</string>
-    <string name="title_activity_single_robo_view">SingleRoboViewActivity</string>
+    <string name="network_error_message">Failed to obtain data from internet service. Try again?</string>
+    <string name="try_again">Try again</string>
+    <string name="photo_placeholder_descr">Photo downloaded from Panoramio</string>
 </resources>
