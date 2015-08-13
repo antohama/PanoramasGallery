@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.training.anton.api.model.PanoramaPhoto;
 
 /**
  * Fragment shows full photo after clicking on it in grid view

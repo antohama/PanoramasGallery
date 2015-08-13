@@ -24,7 +24,7 @@ public class PanoramioActivity extends AppCompatActivity implements SwipeRefresh
     private RecyclerView mRecyclerView;
     private RecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-	SwipeRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +35,21 @@ public class PanoramioActivity extends AppCompatActivity implements SwipeRefresh
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-		mRecyclerView.addOnScrollListener(new OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                swipeRefreshLayout.setEnabled(true);
             }
         });
 
-		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(this);
-		
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refreshlayout);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_light,
+                android.R.color.holo_red_light,
+                android.R.color.holo_blue_light);
+        swipeRefreshLayout.setOnRefreshListener(PanoramioActivity.this);
+
+
         mAdapter = new RecyclerAdapter(new RecyclerAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -64,7 +68,7 @@ public class PanoramioActivity extends AppCompatActivity implements SwipeRefresh
         mAdapter.updateContent(listPhotos);
 
         mRecyclerView.setAdapter(mAdapter);
-		swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     public void showErrorMessage() {
@@ -75,8 +79,8 @@ public class PanoramioActivity extends AppCompatActivity implements SwipeRefresh
             }
         }).show(this);
     }
-	
-	@Override
+
+    @Override
     public void onRefresh() {
         networkModule.makeRequest(PanoramioActivity.this);
     }
