@@ -53,8 +53,7 @@ public class PanoramioActivity extends AppCompatActivity implements SwipeRefresh
         mAdapter = new RecyclerAdapter(new RecyclerAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String fullPhotoURL = listPhotos.get(position).getPhotoURL().replace("medium", "medium");
-                FullPhotoFragment.create(fullPhotoURL).show(getFragmentManager(), "photofragment");
+                FullPhotoFragment.create(listPhotos.get(position)).show(getFragmentManager(), "photofragment");
             }
         });
 

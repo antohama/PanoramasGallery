@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.training.anton.api.model.PanoramaPhoto;
 
 import java.util.Collections;
@@ -55,7 +55,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         PanoramaPhoto photo = getItem(i);
 
-        Picasso.with(mContext).load(photo.getPhotoURL()).into(viewHolder.mImageView);
+        Glide.with(mContext)
+                .load(photo.getPhotoURL())
+                .thumbnail(0.5f)
+                .override(500, 300)
+                .into(viewHolder.mImageView);
         viewHolder.mTextView.setText(photo.getPhotoTitle());
     }
 
