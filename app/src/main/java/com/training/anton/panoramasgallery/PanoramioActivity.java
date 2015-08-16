@@ -19,12 +19,12 @@ import com.training.anton.network.NetworkModule;
 import java.util.List;
 
 public class PanoramioActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+    private SwipeRefreshLayout swipeRefreshLayout;
     private NetworkModule networkModule;
     private List<PanoramaPhoto> listPhotos;
     private RecyclerView mRecyclerView;
     private RecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,8 @@ public class PanoramioActivity extends AppCompatActivity implements SwipeRefresh
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mLayoutManager = new GridLayoutManager(this, 2);
+        int gridColCount = getResources().getInteger(R.integer.gridColCount);
+        mLayoutManager = new GridLayoutManager(this, gridColCount);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addOnScrollListener(new OnScrollListener() {
@@ -50,7 +51,7 @@ public class PanoramioActivity extends AppCompatActivity implements SwipeRefresh
         swipeRefreshLayout.setOnRefreshListener(PanoramioActivity.this);
 
 
-        mAdapter = new RecyclerAdapter(new RecyclerAdapter.ItemClickListener() {
+        mAdapter = new RecyclerAdapter(this, new RecyclerAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 FullPhotoFragment.create(listPhotos.get(position)).show(getFragmentManager(), "photofragment");

@@ -10,8 +10,8 @@ import com.training.anton.panoramasgallery.network.EspressoNetworkModule;
 import java.io.IOException;
 
 public class EspressoPanoramioApplication extends PanoramioApplication {
-    private EspressoNetworkModule mNetworkModule = new EspressoNetworkModule();
     private static MockWebServer server;
+    private EspressoNetworkModule mNetworkModule = new EspressoNetworkModule();
 
     public static EspressoPanoramioApplication get() {
         Context context = InstrumentationRegistry.getTargetContext().getApplicationContext();

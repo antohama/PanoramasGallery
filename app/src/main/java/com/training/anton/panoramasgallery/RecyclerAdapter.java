@@ -18,27 +18,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private Context mContext;
     private List<PanoramaPhoto> mPanoramasList;
     private ItemClickListener mListener;
+    private int maxThumbWidth;
+    private int maxThumbHeight;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView mImageView;
-        TextView mTextView;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            mImageView = (ImageView) itemView.findViewById(R.id.imageViewInCell);
-            mTextView = (TextView) itemView.findViewById(R.id.textViewInCell);
-        }
-    }
-
-    public RecyclerAdapter(ItemClickListener itemClickListener) {
+    public RecyclerAdapter(Context context, ItemClickListener itemClickListener) {
+        mContext = context;
         mPanoramasList = Collections.EMPTY_LIST;
         mListener = itemClickListener;
+        maxThumbWidth = context.getResources().getInteger(R.integer.maxThumbWidth);
+        maxThumbHeight = context.getResources().getInteger(R.integer.maxThumbHeight);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        mContext = viewGroup.getContext();
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_view, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +49,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         Glide.with(mContext)
                 .load(photo.getPhotoURL())
-                .thumbnail(0.5f)
-                .override(500, 300)
+                .override(maxThumbWidth, maxThumbHeight)
                 .into(viewHolder.mImageView);
         viewHolder.mTextView.setText(photo.getPhotoTitle());
     }
@@ -84,5 +75,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView mTextView;
+        ImageView mImageView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mImageView = (ImageView) itemView.findViewById(R.id.imageViewInCell);
+            mTextView = (TextView) itemView.findViewById(R.id.textViewInCell);
+        }
+
     }
 }

@@ -13,11 +13,20 @@ import com.bumptech.glide.Glide;
 import com.training.anton.api.model.PanoramaPhoto;
 
 /**
- * Fragment shows full photo after clicking on it in grid view
+ * Fragment shows full photo after clicking on it in recycler view
  */
 public class FullPhotoFragment extends DialogFragment {
     private static final String EXTRA_PHOTO_URL = "com.training.anton.panoramasgallery.PHOTO_URL";
     private static final String EXTRA_PHOTO_TITLE = "com.training.anton.panoramasgallery.PHOTO_TITLE";
+
+    public static FullPhotoFragment create(PanoramaPhoto photo) {
+        Bundle extra = new Bundle();
+        extra.putString(EXTRA_PHOTO_URL, photo.getPhotoURL());
+        extra.putString(EXTRA_PHOTO_TITLE, photo.getPhotoTitle());
+        FullPhotoFragment fragmentFullPhoto = new FullPhotoFragment();
+        fragmentFullPhoto.setArguments(extra);
+        return fragmentFullPhoto;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,19 +37,10 @@ public class FullPhotoFragment extends DialogFragment {
         TextView textView = (TextView) fragmentView.findViewById(R.id.textInFragment);
         textView.setText(getArguments().getString(EXTRA_PHOTO_TITLE));
 
-        Glide.with(getActivity())
+        Glide.with(this)
                 .load(fullPhotoURL.replace("mw2.google.com/mw-panoramio/photos/medium", "static.panoramio.com/photos/original"))
-                .crossFade()
+                .placeholder(R.drawable.loading)
                 .into(imageView);
         return fragmentView;
-    }
-
-    public static FullPhotoFragment create(PanoramaPhoto photo) {
-        Bundle extra = new Bundle();
-        extra.putString(EXTRA_PHOTO_URL, photo.getPhotoURL());
-        extra.putString(EXTRA_PHOTO_TITLE, photo.getPhotoTitle());
-        FullPhotoFragment fragmentFullPhoto = new FullPhotoFragment();
-        fragmentFullPhoto.setArguments(extra);
-        return fragmentFullPhoto;
     }
 }

@@ -3,6 +3,17 @@ package com.training.anton.api.model;
 import com.google.gson.annotations.SerializedName;
 
 public class PanoramaPhoto {
+    @SerializedName("photo_id")
+    private int photoId;
+    private int height;
+    private int width;
+    private double latitude;
+    private double longitude;
+    @SerializedName("photo_file_url")
+    private String photoURL;
+    @SerializedName("photo_title")
+    private String photoTitle;
+
     @Override
     public String toString() {
         return "PanoramaPhoto{" +
@@ -15,19 +26,6 @@ public class PanoramaPhoto {
                 ", photoTitle='" + photoTitle + '\'' +
                 '}';
     }
-
-    @SerializedName("photo_id")
-    private int photoId;
-    private int height;
-    private int width;
-    private double latitude;
-    private double longitude;
-
-    @SerializedName("photo_file_url")
-    private String photoURL;
-
-    @SerializedName("photo_title")
-    private String photoTitle;
 
     public int getPhotoId() {
         return photoId;
