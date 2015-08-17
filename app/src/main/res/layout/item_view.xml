@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/single_margin"
-        android:elevation="@dimen/min_elevation"
         card_view:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -22,7 +21,6 @@
                 android:id="@+id/imageViewInCell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
                 android:contentDescription="@string/photo_placeholder_descr"
                 android:gravity="center" />
 
@@ -31,7 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/single_margin"
-                android:textColor="@android:color/holo_blue_dark"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 

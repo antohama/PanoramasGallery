@@ -1,8 +1,21 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="android:Theme.Material.Light">
+        <item name="android:windowBackground">@color/background_material_light</item>
+        <item name="android:textColor">@color/material_blue_500</item>
+        <item name="android:statusBarColor">@color/material_blue_700</item>
+        <item name="android:actionBarStyle">@style/action_bar_style</item>
     </style>
 
+    <style name="action_bar_style" parent="android:Widget.Material.ActionBar">
+        <item name="android:background">@color/material_blue_500</item>
+        <item name="android:titleTextStyle">@style/title_text_style</item>
+    </style>
+
+    <style name="title_text_style" parent="android:TextAppearance.Material.Title">
+        <item name="android:textColor">@color/primary_text_default_material_dark</item>
+    </style>
+
+    <color name="material_blue_500">#2196F3</color>
+    <color name="material_blue_700">#1976D2</color>
 </resources>

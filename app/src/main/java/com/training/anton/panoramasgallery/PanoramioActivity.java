@@ -1,8 +1,8 @@
 package com.training.anton.panoramasgallery;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
@@ -18,7 +18,7 @@ import com.training.anton.network.NetworkModule;
 
 import java.util.List;
 
-public class PanoramioActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class PanoramioActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private NetworkModule networkModule;
     private List<PanoramaPhoto> listPhotos;

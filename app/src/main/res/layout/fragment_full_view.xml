@@ -17,10 +17,9 @@
         android:id="@+id/textInFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/full_photo_view"
+        android:layout_alignStart="@id/full_photo_view"
         android:layout_below="@id/full_photo_view"
         android:layout_marginBottom="@dimen/single_margin"
         android:layout_marginLeft="@dimen/double_margin"
-        android:layout_marginRight="@dimen/double_margin"
-        android:textColor="@android:color/holo_blue_light" />
+        android:layout_marginRight="@dimen/double_margin" />
 </RelativeLayout>
