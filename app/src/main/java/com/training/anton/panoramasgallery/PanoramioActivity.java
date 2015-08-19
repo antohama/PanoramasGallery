@@ -1,6 +1,9 @@
 package com.training.anton.panoramasgallery;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.listeners.ActionClickListener;
@@ -18,13 +23,11 @@ import com.training.anton.network.NetworkModule;
 
 import java.util.List;
 
-public class PanoramioActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener {
+public class PanoramioActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener,
+        RecyclerAdapter.OnItemClickListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private NetworkModule networkModule;
-    private List<PanoramaPhoto> listPhotos;
     private RecyclerView mRecyclerView;
-    private RecyclerAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,7 @@ public class PanoramioActivity extends Activity implements SwipeRefreshLayout.On
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         int gridColCount = getResources().getInteger(R.integer.gridColCount);
-        mLayoutManager = new GridLayoutManager(this, gridColCount);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, gridColCount);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addOnScrollListener(new OnScrollListener() {
@@ -43,31 +46,23 @@ public class PanoramioActivity extends Activity implements SwipeRefreshLayout.On
             }
         });
 
-
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refreshlayout);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_light,
                 android.R.color.holo_red_light,
                 android.R.color.holo_blue_light);
         swipeRefreshLayout.setOnRefreshListener(PanoramioActivity.this);
 
-
-        mAdapter = new RecyclerAdapter(this, new RecyclerAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                FullPhotoFragment.create(listPhotos.get(position)).show(getFragmentManager(), "photofragment");
-            }
-        });
-
         networkModule = ((PanoramioApplication) getApplicationContext()).getNetworkModule();
         networkModule.makeRequest(this);
     }
 
     public void responseSuccess(Panoramas panoramas) {
-        listPhotos = panoramas.getPhotos();
+        List<PanoramaPhoto> listPhotos = panoramas.getPhotos();
         Log.d("Obtained list", listPhotos.toString());
-        mAdapter.updateContent(listPhotos);
-
+        RecyclerAdapter mAdapter = new RecyclerAdapter(this);
+        mAdapter.setmItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.updateContent(listPhotos);
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -83,5 +78,16 @@ public class PanoramioActivity extends Activity implements SwipeRefreshLayout.On
     @Override
     public void onRefresh() {
         networkModule.makeRequest(PanoramioActivity.this);
+    }
+
+    @Override
+    public void onItemClick(View container, PanoramaPhoto panoramaPhoto) {
+        Intent showFullPhotoIntent = new Intent(PanoramioActivity.this, FullPhotoActivity.class);
+        showFullPhotoIntent.putExtra(FullPhotoActivity.EXTRA_FULL_PHOTO, panoramaPhoto);
+        ImageView clickedImageView = (ImageView) container.findViewById(R.id.imageViewInCell);
+        Bitmap photo = ((GlideBitmapDrawable) clickedImageView.getDrawable()).getBitmap();
+        ActivityOptions options = ActivityOptions.
+                makeThumbnailScaleUpAnimation(container, photo, 0, 0);
+        startActivity(showFullPhotoIntent, options.toBundle());
     }
 }

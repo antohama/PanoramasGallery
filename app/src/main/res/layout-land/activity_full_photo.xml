@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/full_photo_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/half_margin"
+        android:layout_weight="4">
+
+        <ImageView
+            android:id="@+id/full_photo_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/single_margin" />
+
+        <TextView
+            android:id="@+id/image_loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/text_loading"
+            android:textSize="40sp" />
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/photo_description_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/single_margin"
+        android:layout_marginEnd="@dimen/half_margin"
+        android:layout_marginStart="@dimen/single_margin"
+        android:layout_marginTop="@dimen/double_margin"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/AppTheme.OverlayActivity.FullPhotoLabel.Land"
+            android:text="@string/text_photo_title" />
+
+        <TextView
+            android:id="@+id/photo_description"
+            style="@style/AppTheme.OverlayActivity.FullPhotoDescr" />
+
+        <TextView
+            style="@style/AppTheme.OverlayActivity.FullPhotoLabel.Land"
+            android:text="@string/text_author" />
+
+        <TextView
+            android:id="@+id/photo_author"
+            style="@style/AppTheme.OverlayActivity.FullPhotoDescr" />
+
+        <TextView
+            style="@style/AppTheme.OverlayActivity.FullPhotoLabel.Land"
+            android:text="@string/text_photo_date" />
+
+        <TextView
+            android:id="@+id/photo_date"
+            style="@style/AppTheme.OverlayActivity.FullPhotoDescr" />
+
+        <TextView
+            style="@style/AppTheme.OverlayActivity.FullPhotoLabel.Land"
+            android:text="@string/text_original_size" />
+
+        <TextView
+            android:id="@+id/photo_dimensions"
+            style="@style/AppTheme.OverlayActivity.FullPhotoDescr" />
+    </LinearLayout>
+
+</LinearLayout>

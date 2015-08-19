@@ -15,16 +15,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+    public interface OnItemClickListener {
+        void onItemClick(View container, PanoramaPhoto panoramaPhoto);
+    }
+
+    private OnItemClickListener mItemClickListener;
     private Context mContext;
     private List<PanoramaPhoto> mPanoramasList;
-    private ItemClickListener mListener;
     private int maxThumbWidth;
     private int maxThumbHeight;
 
-    public RecyclerAdapter(Context context, ItemClickListener itemClickListener) {
+    public RecyclerAdapter(Context context) {
         mContext = context;
         mPanoramasList = Collections.EMPTY_LIST;
-        mListener = itemClickListener;
         maxThumbWidth = context.getResources().getInteger(R.integer.maxThumbWidth);
         maxThumbHeight = context.getResources().getInteger(R.integer.maxThumbHeight);
     }
@@ -32,15 +35,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_view, viewGroup, false);
-        final ViewHolder viewHolder = new ViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onItemClick(v, viewHolder.getLayoutPosition());
-            }
-        });
-
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -52,6 +47,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 .override(maxThumbWidth, maxThumbHeight)
                 .into(viewHolder.mImageView);
         viewHolder.mTextView.setText(photo.getPhotoTitle());
+        viewHolder.itemView.setOnClickListener(new PhotoClickListener(photo));
     }
 
     @Override
@@ -73,18 +69,34 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
+    public void setmItemClickListener(OnItemClickListener listener) {
+        mItemClickListener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mTextView;
+
         ImageView mImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.imageViewInCell);
             mTextView = (TextView) itemView.findViewById(R.id.textViewInCell);
+        }
+    }
+
+    private class PhotoClickListener implements View.OnClickListener {
+        private final PanoramaPhoto photo;
+
+        private PhotoClickListener(PanoramaPhoto photo) {
+            this.photo = photo;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, photo);
+            }
         }
 
     }

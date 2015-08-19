@@ -1,7 +1,9 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="half_margin">4dp</dimen>
     <dimen name="single_margin">8dp</dimen>
     <dimen name="double_margin">16dp</dimen>
-    <dimen name="min_elevation">4dp</dimen>
-    <dimen name="half_margin">4dp</dimen>
+    <dimen name="normal_font">16sp</dimen>
+    <dimen name="large_font">18sp</dimen>
+    <dimen name="label_photo_descr_width">120dp</dimen>
 </resources>
