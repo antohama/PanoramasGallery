@@ -12,6 +12,10 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class NetworkModule implements Callback<Panoramas> {
+    private static final String PHOTOS_SET_FULL = "full";
+    private static final String PHOTO_SIZE_SMALL = "small";
+    public static final String pathToThumb = "mw2.google.com/mw-panoramio/photos/" + PHOTO_SIZE_SMALL;
+    public static final String pathToOriginal = "static.panoramio.com/photos/original";
     private PanoramioActivity mActivity;
 
     protected PanoramioAPI getService() {
@@ -20,7 +24,15 @@ public class NetworkModule implements Callback<Panoramas> {
 
     public void makeRequest(PanoramioActivity panoramioActivity) {
         mActivity = panoramioActivity;
-        getService().getPanoramas("full", "medium", 0, 100, PanoramioService.LONG - 0.005, PanoramioService.LAT - 0.005, PanoramioService.LONG + 0.005, PanoramioService.LAT + 0.005, this);
+        int from = 0;
+        int to = 100;
+        double distance = 0.005;
+        getService().getPanoramas(PHOTOS_SET_FULL, PHOTO_SIZE_SMALL, from, to,
+                PanoramioService.LONG - distance,
+                PanoramioService.LAT - distance,
+                PanoramioService.LONG + distance,
+                PanoramioService.LAT + distance,
+                this);
     }
 
     @Override

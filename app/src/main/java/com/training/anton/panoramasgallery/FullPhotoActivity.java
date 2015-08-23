@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.training.anton.api.model.PanoramaPhoto;
+import com.training.anton.network.NetworkModule;
 
 public class FullPhotoActivity extends Activity {
     public static final String EXTRA_FULL_PHOTO = "com.training.anton.panoramasgallery.FULL_PHOTO";
@@ -28,7 +29,7 @@ public class FullPhotoActivity extends Activity {
         PanoramaPhoto photo = getIntent().getParcelableExtra(EXTRA_FULL_PHOTO);
         ImageView imageView = (ImageView) findViewById(R.id.full_photo_image);
         Glide.with(activityContext)
-                .load(photo.getPhotoURL().replace("mw2.google.com/mw-panoramio/photos/medium", "static.panoramio.com/photos/original"))
+                .load(photo.getPhotoURL().replace(NetworkModule.pathToThumb, NetworkModule.pathToOriginal))
                 .into(new GlideDrawableImageViewTarget(imageView) {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
