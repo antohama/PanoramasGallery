@@ -52,9 +52,6 @@
         <item name="android:layout_marginBottom">@dimen/half_margin</item>
     </style>
 
-    <color name="material_blue_50">#E3F2FD</color>
-    <color name="material_blue_100">#BBDEFB</color>
-    <color name="material_blue_300">#64B5F6</color>
     <color name="material_blue_500">#2196F3</color>
     <color name="material_blue_700">#1976D2</color>
     <color name="material_blue_grey_50">#ECEFF1</color>

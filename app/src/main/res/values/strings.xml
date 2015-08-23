@@ -4,9 +4,10 @@
     <string name="network_error_message">Failed to obtain data from internet service. Try again?</string>
     <string name="try_again">Try again</string>
     <string name="photo_placeholder_descr">Photo downloaded from Panoramio</string>
-    <string name="text_loading">Loading image...</string>
+    <string name="text_loading">Loading image…</string>
     <string name="text_photo_title">Photo title:</string>
     <string name="text_author">Author:</string>
     <string name="text_photo_date">Date:</string>
     <string name="text_original_size">Original size:</string>
+    <string name="full_photo_imageview_descr">Full photo</string>
 </resources>
