@@ -24,14 +24,15 @@ public class NetworkModule implements Callback<Panoramas> {
 
     public void makeRequest(PanoramioActivity panoramioActivity) {
         mActivity = panoramioActivity;
+
         int from = 0;
         int to = 100;
         double distance = 0.005;
         getService().getPanoramas(PHOTOS_SET_FULL, PHOTO_SIZE_SMALL, from, to,
-                PanoramioService.LONG - distance,
-                PanoramioService.LAT - distance,
-                PanoramioService.LONG + distance,
-                PanoramioService.LAT + distance,
+                PanoramioService.getLon() - distance,
+                PanoramioService.getLat() - distance,
+                PanoramioService.getLon() + distance,
+                PanoramioService.getLat() + distance,
                 this);
     }
 
@@ -45,6 +46,6 @@ public class NetworkModule implements Callback<Panoramas> {
     public void failure(RetrofitError error) {
         Log.d("URL of request", error.getUrl());
         error.printStackTrace();
-        mActivity.showErrorMessage();
+        mActivity.networkError();
     }
 }

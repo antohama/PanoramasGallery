@@ -15,7 +15,7 @@ import com.training.anton.network.NetworkModule;
 
 public class FullPhotoActivity extends Activity {
     public static final String EXTRA_FULL_PHOTO = "com.training.anton.panoramasgallery.FULL_PHOTO";
-    Activity activityContext;
+    private final Activity activityContext;
 
     public FullPhotoActivity() {
         activityContext = this;

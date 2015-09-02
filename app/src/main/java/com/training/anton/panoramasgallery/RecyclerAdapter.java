@@ -15,10 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    public interface OnItemClickListener {
-        void onItemClick(View container, PanoramaPhoto panoramaPhoto);
-    }
-
     private OnItemClickListener mItemClickListener;
     private Context mContext;
     private List<PanoramaPhoto> mPanoramasList;
@@ -69,8 +65,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public void setmItemClickListener(OnItemClickListener listener) {
+    public void setItemClickListener(OnItemClickListener listener) {
         mItemClickListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View container, PanoramaPhoto panoramaPhoto);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
